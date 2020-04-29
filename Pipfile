@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autoflake = "*"
+flake8 = "*"
+pyls-isort = "*"
+pyls-mypy = "*"
+importmagic = "*"
+python-language-server = {extras = ["all"],version = "*"}
+epc = "*"
+ptvsd = "*"
+coverage = "*"
+
+[packages]
+requests = "*"
+numpy = "*"
+argh = "*"
+wget = "*"
+parameterized = "*"
+backtrace = "*"
+steno-summary = {editable = true,path = "."}
+
+[requires]
+python_version = "3.8"
