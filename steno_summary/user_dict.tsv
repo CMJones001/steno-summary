@@ -1,36 +1,32 @@
-Word	Summar	Cannonical	Tags
-Now	NOE	TPHOE	briefs
-Forget	FO-RGT	TPORGT	briefs
-Ask	SK	SK	Tags
+#Word	Summar	Cannonical	Tags
+"	KW-GS		punctuation
+,	WR-BG		punctuation
+Ask	SK	SK
+Do	DO
 Easy	EZ
 Ever	-FR
 Every	E-FR
 Everyone	EFRN
-Forget	FO-RGT
+Family	FAM
+Forget	FO-RGT	TPORGT
+Function	FUKS
 Have	V
 Have you been	VUB
 I dont' think	KWRO-NG
 I want	IPT
 Interest	TR
-Left N	-N
-Now	NOE
+N [Right]	-N		single
+N [Left]	N		single
+Now	NOE	TPHOE
 Obvious	O-FB
 Obviously	O-FBL
 Of course	O-FK
-Right N	N
 Subject	SUBT
 Their	THA-IR
 Today	TOENT
 Tomorrow	TO-EM
 Tonight	TO-NT
-Very much	V-FP
 Very	VE
-Function	FUKS
+Very much	V-FP
 Where Would	WR-LD
-Family	FAM
-"	KW-GS
-,	WR-BG
-Do	DO
-Ask	SK
-Can you	K
 You Can	KU

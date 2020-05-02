@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c720d35ea8401df2de9245896d014555f042383b863648519641f0b779d9ea73"
+            "sha256": "1559a304335765c57403a6d4474449fb42fe02f904ddd2fc6249ac2dd4bce69f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -74,6 +74,21 @@
             ],
             "index": "pypi",
             "version": "==0.7.4"
+        },
+        "sortedcollections": {
+            "hashes": [
+                "sha256:993bdbabd825062876b6c8e19b3e096b0909ea3ef38f23a37fccb67dc02424f3",
+                "sha256:b93e0decbd7f8f19e40c320709e70e4845b6c8b3a0e96c3c4f707b4b93e1d38a"
+            ],
+            "index": "pypi",
+            "version": "==1.1.2"
+        },
+        "sortedcontainers": {
+            "hashes": [
+                "sha256:974e9a32f56b17c1bac2aebd9dcf197f3eb9cd30553c5852a3187ad162e1a03a",
+                "sha256:d9e96492dd51fae31e60837736b38fe42a187b5404c16606ff7ee7cd582d4c60"
+            ],
+            "version": "==2.1.0"
         },
         "steno-summary": {
             "editable": true,

@@ -65,6 +65,12 @@ class Brief:
     def __str__(self):
         return f"Brief: {self.name}\tStroke: {self.keys}"
 
+    def __lt__(self, other):
+        """ Sort on the name of Brief. """
+        if not isinstance(other, Brief):
+            raise NotImplementedError("Sorting not supported for non-Brief objects")
+        return self.name <= other.name
+
     @property
     def cannonical(self):
         """ The key squence without abreviations. """
@@ -79,6 +85,16 @@ class Brief:
     def remaining_right(self):
         """" Letters that are not used on the right hand side. """
         return right_hand - set(self.right_letters)
+
+    @property
+    def short(self):
+        """ Minimal form, used for parsing with external programs (colums). """
+        return f"{self.name}_{self.keys}"
+
+    @property
+    def tsv(self):
+        """ Tab separated values to save into dictionary. """
+        return f"{self.name}\t{self.keys}\t{self.cannonical}\n"
 
     def _parse_key_stroke(self, key):
         """ Attempt to add a letter to the letter store """
@@ -133,40 +149,4 @@ class Brief:
 
 
 if __name__ == "__main__":
-
-    Brief("Easy", "EZ").print_block()
-    Brief("Ever", "-FR").print_block()
-    Brief("Every", "E-FR").print_block()
-    Brief("Everyone", "EFRN").print_block()
-    Brief("Forget", "FO-RGT").print_block()
-    Brief("Have", "V").print_block()
-    Brief("Have you been", "VUB").print_block()
-    Brief("I dont' think", "KWRO-NG").print_block()
-    Brief("I want", "IPT").print_block()
-    Brief("Interest", "TR").print_block()
-    Brief("Left N", "-N").print_block()
-    Brief("Now", "NOE").print_block()
-    Brief("Obvious", "O-FB").print_block()
-    Brief("Obviously", "O-FBL").print_block()
-    Brief("Of course", "O-FK").print_block()
-    Brief("Right N", "N").print_block()
-    Brief("Subject", "SUBT").print_block()
-    Brief("Their", "THA-IR").print_block()
-    Brief("Today", "TOENT").print_block()
-    Brief("Tomorrow", "TO-EM").print_block()
-    Brief("Tonight", "TO-NT").print_block()
-    Brief("Very much", "V-FP").print_block()
-    Brief("Very", "VE").print_block()
-
-    Brief("Function", "FUKS").print_block()
-
-    raise SystemExit
-    Brief("Would The", "WO-T").print_block()
-    Brief("Where Would", "WR-LD").print_block()
-    Brief("Family", "FAM").print_block()
-    Brief('"', "KW-GS").print_block()
-    Brief(",", "WR-BG").print_block()
-    Brief("Do", "DO").print_block()
-    Brief("Ask", "SK").print_block()
-    Breif("Can you" "K*U")
-    Breif("You Can" "KU")
+    pass

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-from typing import Optional, Iterable, Dict
+from typing import Optional, Iterable, Dict, List
 from pathlib import Path
 from steno_summary.brief_info import Brief
+import bisect
 
 """ Read and write to the user dictionary.
 
@@ -19,10 +20,21 @@ def read_dict(dict_location: Optional[Path] = None) -> Iterable[Brief]:
 
     with open(dict_path, "r") as f:
         # Skip the header
-        briefs = [_line_to_brief(l) for l in f.readlines()[1:] if not l.startswith("#")]
+        briefs = [_line_to_brief(l) for l in f.readlines() if is_valid(l)]
 
     # Remove the None lines from comments
-    return briefs
+    return sorted(briefs)
+
+
+def is_valid(line: str) -> bool:
+    """" Test if the line is valid. """
+    if not line:
+        return False
+
+    if line.startswith("#"):
+        return False
+
+    return True
 
 
 def _line_to_brief(line: str) -> Optional[Brief]:
@@ -42,8 +54,13 @@ def _line_to_brief(line: str) -> Optional[Brief]:
     if n_chunks < 2:
         raise ValueError(f"Too few entries in line [{n_chunks}<2] {line}.")
 
+    if n_chunks == 4:
+        tags = chunks[3].strip(" ,\n\r").split(",")
+    else:
+        tags = []
+
     # TODO: Add more complex parsing of dict chunks
-    b = Brief(name=chunks[0], keys=chunks[1])
+    b = Brief(name=chunks[0], keys=chunks[1], tags=tags)
     return b
 
 
@@ -58,8 +75,27 @@ def _validate_path(dict_location: Optional[Path]) -> Path:
     return dict_location
 
 
+def add_to_dict(brief: Brief, briefs=List[Brief]):
+    """ Attempt ta an entry to the list of ``Brief``s """
+    if not isinstance(brief, Brief):
+        raise TypeError("brief should be of type Brief")
+
+    names = [b.name for b in briefs]
+    if brief.name in names:
+        raise ValueError("Brief {brief} already in collection.")
+
+    bisect.insort(briefs, brief)
+    return
+
+
+def save_dict_to_file(brief_list: List[Brief], save_path: Path):
+    """ Save the directory to file. """
+    with open(save_path, "w") as f:
+        f.writelines([b.tsv for b in brief_list])
+
+
 if __name__ == "__main__":
     briefs = read_dict()
-    briefs.sort(key=lambda k: len(k.name))
+    briefs.sort()
     # [print(b) for b in briefs if "you" in b.name.lower()]
-    [print(b) for b in briefs]
+    [print(b.short) for b in briefs]
