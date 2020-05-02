@@ -18,7 +18,7 @@ https://stackoverflow.com/questions/1653970/does-python-have-an-ordered-set
 
 """
 
-re_capital_split = re.compile("[A-Z][^A-Z]*")
+re_capital_split = re.compile("[A-Z\-\*][^A-Z\-\*]*")
 
 
 class Letter:
@@ -74,7 +74,10 @@ def split_on_capital(string: str) -> Iterator[str]:
     This will ignore any lowercase letters at the start of the match as these aren't part
     of the expected behaivour, so an Error is raised in this case.
     """
-    if string[0].lower() == string[0]:
+    if not string:
+        return string
+    first = string[0]
+    if first.lower() == first and first not in ["-"]:
         raise ValueError(f"Split string should start with capital - {string}")
     return re_capital_split.findall(string)
 
@@ -82,8 +85,7 @@ def split_on_capital(string: str) -> Iterator[str]:
 # TODO: Add both key for the vals, either keep them accented or use lower case keys
 # TODO: Extend the letter list
 a = Letter(left="A")
-b = Letter(left="HR", right="B")
-# c =
+b = Letter(left="PW", right="B")
 d = Letter(left="TK", right="D")
 e = Letter(right="E")
 f = Letter(left="TP", right="F")
@@ -97,7 +99,7 @@ m = Letter(left="PH", right="PL")
 n = Letter(left="TPH", right="PB")
 o = Letter(left="O")
 p = Letter(left="P", right="P")
-# q
+q = Letter(left="KW")
 r = Letter(left="R", right="R")
 s = Letter(right="S", left="S")
 t = Letter(right="T", left="T")
@@ -106,3 +108,9 @@ v = Letter(left="SR", right="*F")
 w = Letter(left="W")
 y = Letter(left="KWR")
 z = Letter(left="S*", right="Z")
+
+ch = Letter(left="KH", right="FP")
+th = Letter(left="TH", right="*T")
+ng = Letter(right="PBG")
+nk = Letter(right="*PBG")
+mp = Letter(right="*PL")

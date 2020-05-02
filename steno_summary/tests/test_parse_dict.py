@@ -93,7 +93,7 @@ class TestWriteDict(unittest.TestCase):
         keys = ["SK", "FO-RGT", "NOE"]
         briefs_set = [Brief(n, k) for n, k in zip(names, keys)]
 
-        new_brief = Brief("Easy", "Ez")
+        new_brief = Brief("Easy", "EZ")
         parse.add_to_dict(new_brief, briefs_set)
 
         names_expected = sorted(names + ["Easy"])

@@ -76,3 +76,27 @@ class TestSplitCapitalLetters(unittest.TestCase):
         """ Raise an error if start with a lower case string. """
         with self.assertRaises(ValueError):
             l.split_on_capital("aFAst")
+
+    @parameterized.expand(
+        [
+            ("Ch-SK", ["Ch", "-", "S", "K"]),
+            ("ShAttY-P", ["Sh", "Att", "Y", "-", "P"]),
+            ("QFprH-rmZ", ["Q", "Fpr", "H", "-rm", "Z"]),
+        ]
+    )
+    def test_split_mixed_cap_dash(self, test_string, split_expected):
+        """ Test that we split mixed strings with splits correctly. """
+        split_test = l.split_on_capital(test_string)
+        self.assertEqual(split_test, split_expected)
+
+    @parameterized.expand(
+        [
+            ("Ch*SK", ["Ch", "*", "S", "K"]),
+            ("ShAttY*P", ["Sh", "Att", "Y", "*", "P"]),
+            ("QFprH*-rmZ", ["Q", "Fpr", "H", "*", "-rm", "Z"]),
+        ]
+    )
+    def test_split_mixed_cap_dash(self, test_string, split_expected):
+        """ Test that we split mixed strings with splits correctly. """
+        split_test = l.split_on_capital(test_string)
+        self.assertEqual(split_test, split_expected)

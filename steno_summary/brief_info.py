@@ -53,9 +53,8 @@ class Brief:
         self.tags = tags if tags is not None else []
         self.starred = False
 
-        for l in keys:
-            l = l.lower()
-            if l in letter_dict:
+        for l in letters.split_on_capital(keys):
+            if l.lower() in letter_dict:
                 steno_key = letter_dict[l.lower()]
                 self._parse_key_stroke(steno_key)
             elif l in ["-", "*"]:
@@ -109,7 +108,7 @@ class Brief:
         #     self.starred = True
         #     return None
 
-        # Attempt to fit on the left then night of the keyboard
+        # Attempt to fit on the left then right of the keyboard
         if not (self.fit_on_left(key) or self.fit_on_right(key)):
             raise ValueError(f"Unable to place keystroke - {key}")
 

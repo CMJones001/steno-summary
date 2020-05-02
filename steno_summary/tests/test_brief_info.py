@@ -2,6 +2,7 @@
 import unittest
 import steno_summary.brief_info as b
 import steno_summary.letters as l
+from parameterized import parameterized
 
 left_set = {l for l in "STKPWHRAO"}
 right_set = {l for l in "EUFRPBLGTSDZ"}
@@ -126,7 +127,7 @@ class TestWordParsing(unittest.TestCase):
 
     def test_double_stoke(self):
         """ Test parsing of left and right stroke. """
-        word = b.Brief(name="", keys="nn")
+        word = b.Brief(name="", keys="NN")
         left = {l for l in "TPH"}
         right = {l for l in "PB"}
 
@@ -134,7 +135,7 @@ class TestWordParsing(unittest.TestCase):
 
     def test_right_dash_stoke(self):
         """ Test parsing right with dash stroke. """
-        word = b.Brief(name="", keys="-s")
+        word = b.Brief(name="", keys="-S")
         left = set()
         right = {l for l in "S"}
 
@@ -142,7 +143,7 @@ class TestWordParsing(unittest.TestCase):
 
     def test_left_stoke(self):
         """ Test parsing right with dash stroke. """
-        word = b.Brief(name="", keys="s")
+        word = b.Brief(name="", keys="S")
         left = {l for l in "S"}
         right = set()
 
@@ -150,7 +151,7 @@ class TestWordParsing(unittest.TestCase):
 
     def test_complex_stoke(self):
         """ Test a mixture of both. """
-        word = b.Brief(name="", keys="nvoens")
+        word = b.Brief(name="", keys="NVOENS")
         left = {l for l in "TPHSRO"}
         right = {l for l in "EPBS"}
 
@@ -171,10 +172,61 @@ class TestWordParsing(unittest.TestCase):
         right = set()
         self.validate_missing(word, left, right, starred=True)
 
-    def test_add_starred_letter_BOTH(self):
+    def test_add_starred_letter_both(self):
         """ Handle right hand letters with a star. """
         word = b.Brief(name="ZV", keys="Z-V")
         left = set("S")
         right = set("F")
 
         self.validate_missing(word, left, right, starred=True)
+
+    def test_daul_letter(self):
+        """ Handle two letter strokes.  """
+        word = b.Brief(name="Ch", keys="Ch")
+        left = {l for l in "KH"}
+        right = set()
+
+        self.validate_missing(word, left, right, starred=False)
+
+    def test_daul_letter_left_right(self):
+        """ Handle two letter strokes with extra keys. """
+        word = b.Brief(name="ChCh", keys="ChCh")
+        left = {l for l in "KH"}
+        right = {l for l in "FP"}
+
+        self.validate_missing(word, left, right, starred=False)
+
+    def test_daul_letter_left_twice(self):
+        """ Handle two letter strokes with extra keys. """
+        word = b.Brief(name="ChB", keys="ChB")
+        left = {l for l in "KHPW"}
+        right = set()
+
+        self.validate_missing(word, left, right, starred=False)
+
+    def test_daul_letter_star(self):
+        """ Handle two letter strokes with extra keys. """
+        word = b.Brief(name="Th", keys="ITh")
+        left = set()
+        right = {l for l in "EUT"}
+
+        self.validate_missing(word, left, right, starred=True)
+
+    @parameterized.expand(
+        [
+            ("-Th", "", "T", True),
+            ("Ng", "", "PBG", False),
+            ("Nk", "", "PBG", True),
+            ("Mp", "", "PL", True),
+            ("OMp", "O", "PL", True),
+            ("SChAIChTh", "SKHA", "EUFPT", True),
+        ]
+    )
+    def test_clusers(self, keys, left, right, starred):
+        """ Handle two letter strokes with mixtures of dashes and stars keys. """
+        word = b.Brief(name="Th", keys=keys)
+
+        left = {l for l in left} if left else set()
+        right = {l for l in right} if right else set()
+
+        self.validate_missing(word, left, right, starred=starred)

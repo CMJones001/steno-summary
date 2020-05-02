@@ -3,6 +3,7 @@
 ,	WR-BG		punctuation
 Ask	SK	SK
 Do	DO
+Choice	ChOIS
 Easy	EZ
 Ever	-FR
 Every	E-FR
@@ -24,9 +25,11 @@ Of course	O-FK
 Subject	SUBT
 Their	THA-IR
 Today	TOENT
+Think	ThI
 Tomorrow	TO-EM
 Tonight	TO-NT
 V [Right]	-V		single
+Ch [Right]	-FP		single
 Very	VE
 Very much	V-FP
 Where Would	WR-LD
