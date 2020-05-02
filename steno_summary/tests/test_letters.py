@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 import steno_summary.letters as l
+from parameterized import parameterized
 
 
 class TestAddLetter(unittest.TestCase):
@@ -46,3 +47,32 @@ class TestAddLetter(unittest.TestCase):
         """ Attempt to add a multiple letter but with an error. """
         with self.assertRaises(ValueError):
             l.Letter(right="TDQ")
+
+
+class TestSplitCapitalLetters(unittest.TestCase):
+    """ Test breaking of a string of characters on captial letters. """
+
+    @parameterized.expand(["ABEC", "A", "FZFQCUND"])
+    def test_split_all_caps(self, test_str):
+        """ In the case of all caps this is the same as a string iter. """
+        split_expected = [i for i in test_str]
+        split_test = l.split_on_capital(test_str)
+
+        self.assertEqual(split_test, split_expected)
+
+    @parameterized.expand(
+        [
+            ("ChSK", ["Ch", "S", "K"]),
+            ("ShAttYP", ["Sh", "Att", "Y", "P"]),
+            ("QFprHrmZ", ["Q", "Fpr", "Hrm", "Z"]),
+        ]
+    )
+    def test_split_mixed_cap(self, test_string, split_expected):
+        """ Test that we split mixed strings correctly. """
+        split_test = l.split_on_capital(test_string)
+        self.assertEqual(split_test, split_expected)
+
+    def test_split_error(self):
+        """ Raise an error if start with a lower case string. """
+        with self.assertRaises(ValueError):
+            l.split_on_capital("aFAst")

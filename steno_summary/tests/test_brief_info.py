@@ -100,7 +100,9 @@ class TestBrief(unittest.TestCase):
 class TestWordParsing(unittest.TestCase):
     """ Parsing of strings handed directly to the Brief """
 
-    def validate_missing(self, word: b.Brief, left_keys: set, right_keys: set):
+    def validate_missing(
+        self, word: b.Brief, left_keys: set, right_keys: set, starred=False
+    ):
         """ Test for the recorded and missing letters on the left/right side. """
         # Left side unchanged
         remaining_left_expeceted = left_set - left_keys
@@ -119,6 +121,8 @@ class TestWordParsing(unittest.TestCase):
         right_letter_expected = right_keys
         right_letter_actual = word.right_letters
         self.assertEqual(right_letter_expected, right_letter_actual)
+
+        self.assertEqual(starred, word.starred, msg=f"{word} failed")
 
     def test_double_stoke(self):
         """ Test parsing of left and right stroke. """
@@ -151,3 +155,26 @@ class TestWordParsing(unittest.TestCase):
         right = {l for l in "EPBS"}
 
         self.validate_missing(word, left, right)
+
+    def test_add_starred_letter_right(self):
+        """ Handle right hand letters with a star. """
+        word = b.Brief(name="V", keys="-V")
+        left = set()
+        right = set("F")
+
+        self.validate_missing(word, left, right, starred=True)
+
+    def test_add_starred_letter_left(self):
+        """ Handle left hand letters with a star. """
+        word = b.Brief(name="Z", keys="Z")
+        left = set("S")
+        right = set()
+        self.validate_missing(word, left, right, starred=True)
+
+    def test_add_starred_letter_BOTH(self):
+        """ Handle right hand letters with a star. """
+        word = b.Brief(name="ZV", keys="Z-V")
+        left = set("S")
+        right = set("F")
+
+        self.validate_missing(word, left, right, starred=True)

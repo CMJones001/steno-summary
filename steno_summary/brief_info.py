@@ -51,13 +51,14 @@ class Brief:
         self.left_letters: Set[str] = set()
         self.right_letters: Set[str] = set()
         self.tags = tags if tags is not None else []
+        self.starred = False
 
         for l in keys:
             l = l.lower()
             if l in letter_dict:
                 steno_key = letter_dict[l.lower()]
                 self._parse_key_stroke(steno_key)
-            elif l == "-":
+            elif l in ["-", "*"]:
                 self._parse_key_stroke(l)
             else:
                 raise ValueError(f"Cannot parse letter {l} is it in letter_dict?")
@@ -69,6 +70,7 @@ class Brief:
         """ Sort on the name of Brief. """
         if not isinstance(other, Brief):
             raise NotImplementedError("Sorting not supported for non-Brief objects")
+        # return self.name <= other.name
         return self.name <= other.name
 
     @property
@@ -102,16 +104,59 @@ class Brief:
         if key == "-":
             self.left_valid = False
             return None
+        # if key == "*":
+        #     print(f"{key} matches *")
+        #     self.starred = True
+        #     return None
 
-        if self.left_valid and key.left and key.left <= self.remaining_left:
-            # Attempt to add to left hand side
-            self.left_letters |= key.left
-        elif key.right and key.right <= self.remaining_right:
+        # Attempt to fit on the left then night of the keyboard
+        if not (self.fit_on_left(key) or self.fit_on_right(key)):
+            raise ValueError(f"Unable to place keystroke - {key}")
+
+    def fit_on_left(self, key) -> bool:
+        """ Attempt to fit the key onto the right hand side of the keyboard. """
+
+        # Remove control chars
+        # TODO: Will have to deal with letters that have - in them
+
+        # Deal with blank cases
+        if not self.left_valid or not key.left:
+            return False
+
+        # Remove command chars
+        starred = "*" in key.left
+        formatted_keys = set(filter(lambda l: l not in ["*", "-"], key.left))
+
+        if formatted_keys <= self.remaining_left:
+            # If we are unable to place it in the left we disable it (steno order)
+            self.left_letters |= formatted_keys
+            if starred:
+                self.starred = True
+            return True
+        return False
+
+    def fit_on_right(self, key) -> bool:
+        """ Attempt to fit the key onto the right hand side of the keyboard. """
+
+        # Remove control chars
+        # TODO: Will have to deal with letters that have - in them
+
+        # Deal with blank cases
+        if not key.right:
+            return False
+
+        # Remove command chars
+        starred = "*" in key.right
+        formatted_keys = set(filter(lambda l: l not in ["*", "-"], key.right))
+
+        if formatted_keys <= self.remaining_right:
             # If we are unable to place it in the left we disable it (steno order)
             self.left_valid = False
-            self.right_letters |= key.right
-        else:
-            raise ValueError(f"Unable to place keystroke - {key}")
+            self.right_letters |= formatted_keys
+            if starred:
+                self.starred = True
+            return True
+        return False
 
     def print_block(self):
         """ Print out the array while showing the structure of the keyboard. """
@@ -121,7 +166,7 @@ class Brief:
         empty = "▧"
         null = " "
 
-        left_fmt = {"*": null}
+        left_fmt = {"*": "*" if self.starred else null}
         for key in left_hand:
             left_fmt[key] = key if key in self.left_letters else empty
 

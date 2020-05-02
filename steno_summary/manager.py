@@ -29,7 +29,6 @@ def starting_with(string: str):
 def matches_tag(tag: str):
     """ Print the names of the strokes that contain the tags. """
     briefs = read_dict()
-
     filtered_briefs = [b.print_block() for b in briefs if tag in b.tags]
 
 
