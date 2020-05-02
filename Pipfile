@@ -15,10 +15,8 @@ ptvsd = "*"
 coverage = "*"
 
 [packages]
-requests = "*"
 numpy = "*"
 argh = "*"
-wget = "*"
 parameterized = "*"
 backtrace = "*"
 steno-summary = {editable = true,path = "."}

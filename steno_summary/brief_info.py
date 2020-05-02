@@ -29,6 +29,12 @@ TODO: Tags: We have added some basic support for tags that can be used to filter
       results, for instance to only include the punctuation. This may be made as
       an enum?
 
+TODO: Add command line argument for adding and searching breifs.
+
+TODO: Multistroke commands
+
+TODO: Allow lowercase letters to disamibiguate groups?
+
 """
 
 letter_dict = letters.__dict__
@@ -55,6 +61,9 @@ class Brief:
                 self._parse_key_stroke(l)
             else:
                 raise ValueError(f"Cannot parse letter {l} is it in letter_dict?")
+
+    def __str__(self):
+        return f"Brief: {self.name}\tStroke: {self.keys}"
 
     @property
     def cannonical(self):
@@ -92,14 +101,15 @@ class Brief:
         """ Print out the array while showing the structure of the keyboard. """
         # empty = "□"
         # full = "■"
+        # null = "▢"
         empty = "▧"
-        # empty = "▢"
+        null = " "
 
-        left_fmt = {"*": empty}
+        left_fmt = {"*": null}
         for key in left_hand:
             left_fmt[key] = key if key in self.left_letters else empty
 
-        right_fmt = {}
+        right_fmt = {"*": null}
         for key in right_hand:
             right_fmt[key] = key if key in self.right_letters else empty
 
@@ -107,13 +117,13 @@ class Brief:
         left_mid = " ".join(left_fmt[k] for k in "SKWR*")
         left_bot = f"{' '*4}{left_fmt['A']} {left_fmt['O']}  "
 
-        right_top = " ".join(right_fmt[k] for k in "FPLTD")
-        right_mid = " ".join(right_fmt[k] for k in "RBGSZ")
+        right_top = " ".join(right_fmt[k] for k in "*FPLTD")
+        right_mid = " ".join(right_fmt[k] for k in "*RBGSZ")
         right_bot = f"{right_fmt['E']} {right_fmt['U']} "
 
         merge_block = (
-            f"{left_top}   {right_top}\n"
-            f"{left_mid}   {right_mid}\n"
+            f"{left_top} {right_top}\n"
+            f"{left_mid} {right_mid}\n"
             f"{left_bot}   {right_bot}"
         )
         print(f"{self.name:^21}")
@@ -123,8 +133,34 @@ class Brief:
 
 
 if __name__ == "__main__":
-    Brief("Right N", "N").print_block()
+
+    Brief("Easy", "EZ").print_block()
+    Brief("Ever", "-FR").print_block()
+    Brief("Every", "E-FR").print_block()
+    Brief("Everyone", "EFRN").print_block()
+    Brief("Forget", "FO-RGT").print_block()
+    Brief("Have", "V").print_block()
+    Brief("Have you been", "VUB").print_block()
+    Brief("I dont' think", "KWRO-NG").print_block()
+    Brief("I want", "IPT").print_block()
+    Brief("Interest", "TR").print_block()
     Brief("Left N", "-N").print_block()
+    Brief("Now", "NOE").print_block()
+    Brief("Obvious", "O-FB").print_block()
+    Brief("Obviously", "O-FBL").print_block()
+    Brief("Of course", "O-FK").print_block()
+    Brief("Right N", "N").print_block()
+    Brief("Subject", "SUBT").print_block()
+    Brief("Their", "THA-IR").print_block()
+    Brief("Today", "TOENT").print_block()
+    Brief("Tomorrow", "TO-EM").print_block()
+    Brief("Tonight", "TO-NT").print_block()
+    Brief("Very much", "V-FP").print_block()
+    Brief("Very", "VE").print_block()
+
+    Brief("Function", "FUKS").print_block()
+
+    raise SystemExit
     Brief("Would The", "WO-T").print_block()
     Brief("Where Would", "WR-LD").print_block()
     Brief("Family", "FAM").print_block()
@@ -132,3 +168,5 @@ if __name__ == "__main__":
     Brief(",", "WR-BG").print_block()
     Brief("Do", "DO").print_block()
     Brief("Ask", "SK").print_block()
+    Breif("Can you" "K*U")
+    Breif("You Can" "KU")
