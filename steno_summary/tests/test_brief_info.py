@@ -230,3 +230,22 @@ class TestWordParsing(unittest.TestCase):
         right = {l for l in right} if right else set()
 
         self.validate_missing(word, left, right, starred=starred)
+
+
+class TestGrid(unittest.TestCase):
+    @unittest.skip
+    def test_splitting(self):
+        names = ["Think", "Now", "Function"]
+        strokes = ["ThI", "NOE", "FUKS"]
+        briefs = [b.Brief(name, stroke) for name, stroke in zip(names, strokes)]
+
+        b.brief_grid(briefs)
+
+    def test_splitting_multiline(self):
+        names = ["Think", "Now", "Function", "Yours", "Have", "Do"]
+        strokes = ["ThI", "NOE", "FUKS", "URS", "V", "DO"]
+        briefs = [b.Brief(name, stroke) for name, stroke in zip(names, strokes)]
+
+        b.brief_grid(briefs)
+
+        self.assertTrue(False)

@@ -43,16 +43,16 @@ def _line_to_brief(line: str) -> Optional[Brief]:
     This involves validating the inputs and splitting them where needed.
     """
     # Ignore comment lines
-    if line.startswith("#"):
-        return
+    if line.startswith("#") or not line:
+        return None
     # Remove new lines or hanging tabs
-    chunks = line.strip("\n\r\t").split("\t")
+    chunks = line.strip(" \n\r\t").split("\t")
     n_chunks = len(chunks)
 
     if n_chunks > 4:
-        raise ValueError(f"Too many entries in line [{n_chunks}>4] {line}.")
+        raise ValueError(f"Too many entries in line [{n_chunks}>4] '{line}'.")
     if n_chunks < 2:
-        raise ValueError(f"Too few entries in line [{n_chunks}<2] {line}.")
+        raise ValueError(f"Too few entries in line [{n_chunks}<2] '{line}'.")
 
     if n_chunks == 4:
         tags = chunks[3].strip(" ,\n\r").split(",")

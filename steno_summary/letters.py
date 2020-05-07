@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from typing import Set, Iterator, Optional
+from typing import Set, Iterator, Optional, List
 import re
 
 """ Database for each letter.
@@ -67,12 +67,14 @@ class Letter:
         return "".join(self.left) + "".join(self.right)
 
 
-def split_on_capital(string: str) -> Iterator[str]:
+def split_on_capital(string: str) -> List[str]:
     """ Break a string into lists starting starting with a single captial letter and then
     zero or more lower case letters.
 
     This will ignore any lowercase letters at the start of the match as these aren't part
     of the expected behaivour, so an Error is raised in this case.
+
+    Here is a misspelled word
     """
     if not string:
         return string
@@ -82,8 +84,6 @@ def split_on_capital(string: str) -> Iterator[str]:
     return re_capital_split.findall(string)
 
 
-# TODO: Add both key for the vals, either keep them accented or use lower case keys
-# TODO: Extend the letter list
 a = Letter(left="A")
 b = Letter(left="PW", right="B")
 d = Letter(left="TK", right="D")

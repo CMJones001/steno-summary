@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from typing import List, Optional, Set
 from steno_summary import letters
+from functools import cached_property
+import shutil
 
 """ The Brief object holds and displays the keystrokes for a brief.
 
@@ -24,17 +26,6 @@ TODO: Steno order: This doesn't really respect the steno order too well, we
       should address this better. Mostly this effects the cannonical outup and
       occassionally requires an additional "-" in the brief description. Might
       be enough to sort the hands separately?
-
-TODO: Tags: We have added some basic support for tags that can be used to filter
-      results, for instance to only include the punctuation. This may be made as
-      an enum?
-
-TODO: Add command line argument for adding and searching breifs.
-
-TODO: Multistroke commands
-
-TODO: Allow lowercase letters to disamibiguate groups?
-
 """
 
 letter_dict = letters.__dict__
@@ -44,6 +35,32 @@ right_hand = frozenset(["E", "U", "F", "R", "P", "B", "L", "G", "T", "S", "D", "
 
 
 class Brief:
+    """ Key stroke summary for a word.
+
+    This allows us to not only display the briefs is a more visual format, but also store
+    them in a more intuitive manner. For instance:
+
+        - NOE -> THPOE gives 'now'
+        - BACh -> PWAFP gives 'batch'
+
+    A basic shortened summary consists of letter chunks, a capital letter followed by
+    optional lower cases letters. Each of these chunks corresponds to a unique sound and
+    key series.
+
+    Steno Order
+    -----------
+
+    We first attempt to place the stroke on the left hand side of the keyboard; if this is
+    not possible, because the chunk does not exist on that side (eg Nk) or the keys are
+    already in use by another stroke then we will attempt to place on the right of the
+    keyboard and stop adding future briefs to the left hand side.
+
+    The chunks will mostly be naturally assigned to the correct hand, but in ambigous
+    cases, "-" may be used to clarify. For instance, a chunk Z may be the single letter
+    "-Z" or the shorthand "S*" on the left. We therefore give the right hand command as
+    "-Z".
+    """
+
     def __init__(self, name: str, keys: str, tags: Optional[List] = None):
         self.name = name
         self.left_valid = True
@@ -103,17 +120,20 @@ class Brief:
         if key == "-":
             self.left_valid = False
             return None
-        # if key == "*":
-        #     print(f"{key} matches *")
-        #     self.starred = True
-        #     return None
+        if key == "*":
+            self.starred = True
+            return None
 
         # Attempt to fit on the left then right of the keyboard
         if not (self.fit_on_left(key) or self.fit_on_right(key)):
             raise ValueError(f"Unable to place keystroke - {key}")
 
-    def fit_on_left(self, key) -> bool:
-        """ Attempt to fit the key onto the right hand side of the keyboard. """
+    def fit_on_left(self, key: letters.Letter) -> bool:
+        """ Attempt to fit the key onto the left hand side of the keyboard.
+
+        If the ``self.left_valid`` flag has been disabled then this will automatically
+        fail. Typically this is caused after we add a key to the right hand side.
+        """
 
         # Remove control chars
         # TODO: Will have to deal with letters that have - in them
@@ -157,7 +177,8 @@ class Brief:
             return True
         return False
 
-    def print_block(self):
+    @cached_property
+    def block(self):
         """ Print out the array while showing the structure of the keyboard. """
         # empty = "□"
         # full = "■"
@@ -179,17 +200,52 @@ class Brief:
 
         right_top = " ".join(right_fmt[k] for k in "*FPLTD")
         right_mid = " ".join(right_fmt[k] for k in "*RBGSZ")
-        right_bot = f"{right_fmt['E']} {right_fmt['U']} "
+        right_bot = f"{right_fmt['E']} {right_fmt['U']}      "
 
         merge_block = (
             f"{left_top} {right_top}\n"
             f"{left_mid} {right_mid}\n"
             f"{left_bot}   {right_bot}"
         )
-        print(f"{self.name:^21}")
-        print(f"{self.keys:^21}")
-        print(merge_block)
-        print()
+        block = f"{self.name:^21}\n" + f"{self.keys:^21}\n" + merge_block
+        return block
+
+    def print_block(self):
+        print(self.block)
+
+
+def brief_grid(briefs: List[Brief], width: Optional[int] = None):
+    """ Print the briefs in a grid """
+    grid_width = width if width is not None else _get_term_width()
+    grid_gap = "  │  "
+
+    block_len = 21 + len(grid_gap)
+    blocks_per_line = grid_width // block_len
+
+    lines = ["" for i in range(5)]
+
+    row = ""
+    for n_brief, brief in enumerate(briefs):
+        strings = brief.block.split("\n")
+
+        if n_brief > 0 and n_brief % blocks_per_line == 0:
+            row += "\n".join(lines)
+            row += "\n\n"
+            lines = ["" for i in lines]
+
+        for i in range(5):
+            lines[i] += strings[i] + grid_gap
+
+    # Test if any rows are not processed
+    if lines[0]:
+        row += "\n".join(lines)
+
+    return row
+
+
+def _get_term_width() -> int:
+    """ Number of columns in the terminal. """
+    return shutil.get_terminal_size().columns
 
 
 if __name__ == "__main__":

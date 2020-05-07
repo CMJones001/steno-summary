@@ -1,9 +1,26 @@
 #Word	Summar	Cannonical	Tags
 "	KW-GS		punctuation
+"	KW-*GS		punctuation
+'[close]	AE		punctuation
+'[open]	A*E		punctuation
 ,	WR-BG		punctuation
+-d	-D		suffix
+-ly	-LI		suffix
+-er	E*R		suffix
+-or	O*R		suffix
+-tion	SH-*UN		suffix
+-ion	YON		suffix
+-able	-BL		suffix
+-al	A*L		suffix
+-ing	-G		suffix
+-s	-S		suffix
+-ness	N-S		suffix
+=	Q-L		punctuation
+Although	L-Th
 Ask	SK	SK
-Do	DO
+Ch [Right]	-FP		single
 Choice	ChOIS
+Do	DO
 Easy	EZ
 Ever	-FR
 Every	E-FR
@@ -16,22 +33,36 @@ Have you been	VUB
 I dont' think	KWRO-NG
 I want	IPT
 Interest	TR
-N [Right]	-N		single
 N [Left]	N		single
+N [Right]	-N		single
 Now	NOE	TPHOE
 Obvious	O-FB
 Obviously	O-FBL
 Of course	O-FK
 Subject	SUBT
 Their	THA-IR
-Today	TOENT
 Think	ThI
+Today	TOENT
 Tomorrow	TO-EM
 Tonight	TO-NT
 V [Right]	-V		single
-Ch [Right]	-FP		single
 Very	VE
 Very much	V-FP
+What happens	WHAPS
 Where Would	WR-LD
-You Can	KU
+Would	WO
+Would be	WO*UB
+Would the	WOU
+Would you	WOU
+Would've	WOUV
+You can	KU
+You would	ULD
+You'll	UL
+Yours	URS
+To you	TOU
 Z [Left]	Z		single
+[	BR-KT		punctuation
+[backspace]	B-Ch		command
+[capitalise]	KPA		command
+[space]	S-P		command
+]	BR*-KT		punctuation
