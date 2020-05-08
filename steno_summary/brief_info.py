@@ -69,15 +69,29 @@ class Brief:
         self.right_letters: Set[str] = set()
         self.tags = tags if tags is not None else []
         self.starred = False
+        self.next_ = None
 
-        for l in letters.split_on_capital(keys):
+        letter_list = letters.split_on_capital(keys)
+        for num, l in enumerate(letter_list):
             if l.lower() in letter_dict:
                 steno_key = letter_dict[l.lower()]
                 self._parse_key_stroke(steno_key)
             elif l in ["-", "*"]:
                 self._parse_key_stroke(l)
+            elif l == "/":
+                formatted_keys = "".join(letter_list[num + 1 :])
+                self.keys = "".join(letter_list[:num])
+                self.next_ = Brief("", formatted_keys)
+                break
             else:
                 raise ValueError(f"Cannot parse letter {l} is it in letter_dict?")
+
+        # Flatten the next_ items into array
+        self.next_items = []
+        next_item = self.next_
+        while next_item is not None:
+            self.next_items.append(next_item)
+            next_item = next_item.next_
 
     def __str__(self):
         return f"Brief: {self.name}\tStroke: {self.keys}"
@@ -88,6 +102,10 @@ class Brief:
             raise NotImplementedError("Sorting not supported for non-Brief objects")
         # return self.name <= other.name
         return self.name <= other.name
+
+    def __len__(self):
+        """ Return the number of strokes required for the brief """
+        return len(self.next_items) + 1
 
     @property
     def cannonical(self):
@@ -217,30 +235,43 @@ class Brief:
 def brief_grid(briefs: List[Brief], width: Optional[int] = None):
     """ Print the briefs in a grid """
     grid_width = width if width is not None else _get_term_width()
-    grid_gap = "  │  "
 
+    grid_gap = "  │  "
     block_len = 21 + len(grid_gap)
     blocks_per_line = grid_width // block_len
 
     lines = ["" for i in range(5)]
 
     row = ""
-    for n_brief, brief in enumerate(briefs):
-        strings = brief.block.split("\n")
+    current_pos = 0
 
-        if n_brief > 0 and n_brief % blocks_per_line == 0:
+    for n_brief, brief in enumerate(briefs):
+
+        # Reset the current line if there will be an overflow
+        current_pos += len(brief)
+        if current_pos > blocks_per_line:
             row += "\n".join(lines)
             row += "\n\n"
             lines = ["" for i in lines]
+            current_pos = len(brief)
 
-        for i in range(5):
-            lines[i] += strings[i] + grid_gap
+        # Add the new block alongside the previous entry
+        _append_block(brief, lines, grid_gap)
+        for next_word in brief.next_items:
+            _append_block(next_word, lines, grid_gap)
 
-    # Test if any rows are not processed
+    # Process any remaning rows
     if lines[0]:
         row += "\n".join(lines)
 
     return row
+
+
+def _append_block(brief: Brief, lines: str, grid_gap: str):
+    """ """
+    strings = brief.block.split("\n")
+    for i in range(5):
+        lines[i] += strings[i] + grid_gap
 
 
 def _get_term_width() -> int:

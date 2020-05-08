@@ -18,7 +18,7 @@ https://stackoverflow.com/questions/1653970/does-python-have-an-ordered-set
 
 """
 
-re_capital_split = re.compile("[A-Z\-\*][^A-Z\-\*]*")
+re_capital_split = re.compile(r"[A-Z\-\*/][^A-Z\-\*/]*")
 
 
 class Letter:
@@ -114,3 +114,4 @@ th = Letter(left="TH", right="*T")
 ng = Letter(right="PBG")
 nk = Letter(right="*PBG")
 mp = Letter(right="*PL")
+oo = Letter(left="AO")

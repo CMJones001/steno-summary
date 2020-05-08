@@ -21,6 +21,8 @@ Ask	SK	SK
 Ch [Right]	-FP		single
 Choice	ChOIS
 Do	DO
+Doing	DO/-G
+Doing	DO*G
 Easy	EZ
 Ever	-FR
 Every	E-FR
@@ -28,8 +30,10 @@ Everyone	EFRN
 Family	FAM
 Forget	FO-RGT	TPORGT
 Function	FUKS
-Have	V
+Good	GOoD
+Have	HAOER
 Have you been	VUB
+Idea	Y-D
 I dont' think	KWRO-NG
 I want	IPT
 Interest	TR
@@ -42,12 +46,14 @@ Of course	O-FK
 Subject	SUBT
 Their	THA-IR
 Think	ThI
+Thinking	ThI/-G
 Today	TOENT
 Tomorrow	TO-EM
 Tonight	TO-NT
 V [Right]	-V		single
 Very	VE
 Very much	V-FP
+We have	VWAOE
 What happens	WHAPS
 Where Would	WR-LD
 Would	WO

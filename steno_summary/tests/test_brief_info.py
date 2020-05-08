@@ -241,6 +241,7 @@ class TestGrid(unittest.TestCase):
 
         b.brief_grid(briefs)
 
+    @unittest.skip
     def test_splitting_multiline(self):
         names = ["Think", "Now", "Function", "Yours", "Have", "Do"]
         strokes = ["ThI", "NOE", "FUKS", "URS", "V", "DO"]
@@ -249,3 +250,91 @@ class TestGrid(unittest.TestCase):
         b.brief_grid(briefs)
 
         self.assertTrue(False)
+
+
+class TestBriefMultiple(unittest.TestCase):
+    """ Parsing of multi-stroke briefs. """
+
+    def validate_missing(
+        self, word: b.Brief, left_keys: set, right_keys: set, starred=False
+    ):
+        """ Test for the recorded and missing letters on the left/right side. """
+        # Left side unchanged
+        remaining_left_expeceted = left_set - left_keys
+        remaining_left_actual = word.remaining_left
+        self.assertEqual(remaining_left_expeceted, remaining_left_actual)
+
+        left_letter_expected = left_keys
+        left_letter_actual = word.left_letters
+        self.assertEqual(left_letter_expected, left_letter_actual)
+
+        # Right side missing the letter
+        remaining_right_expeceted = right_set - right_keys
+        remaining_right_actual = word.remaining_right
+        self.assertEqual(remaining_right_expeceted, remaining_right_actual)
+
+        right_letter_expected = right_keys
+        right_letter_actual = word.right_letters
+        self.assertEqual(right_letter_expected, right_letter_actual)
+
+        self.assertEqual(starred, word.starred, msg=f"{word} failed")
+
+    def test_double_simple(self):
+        """ Test the keys in a simple double brief. """
+        word = b.Brief(name="Double", keys="T/-S")
+        left = {l for l in "T"}
+        right = set()
+
+        self.validate_missing(word, left, right)
+
+        child = word.next_
+        self.validate_missing(child, set(), {l for l in "S"})
+
+    def test_double_complex(self):
+        """ Test the keys in a complex double brief. """
+        word = b.Brief(name="Double", keys="L-Th/-G")
+
+        left = {l for l in "HR"}
+        right = {l for l in "T"}
+
+        self.validate_missing(word, left, right, starred=True)
+
+        child = word.next_
+        self.validate_missing(child, set(), {"G"})
+
+    def test_triple_stroke(self):
+        """ Test the keys in a complex triple stroke. """
+        word = b.Brief(name="Double", keys="L-Th/-G/KWRO-NG")
+        self.validate_missing(word, {l for l in "HR"}, {"T"}, starred=True)
+
+        word = word.next_
+        self.validate_missing(word, set(), {"G"}, starred=False)
+
+        word = word.next_
+        self.validate_missing(
+            word, {l for l in "KWRO"}, {l for l in "PBG"}, starred=False
+        )
+
+    def test_single_len(self):
+        """ Get the number of keys in single stroke. """
+        word = b.Brief(name="Single", keys="-G")
+        n_strokes_test = len(word)
+        n_strokes_expected = 1
+
+        self.assertEqual(n_strokes_test, n_strokes_expected)
+
+    def test_double_len(self):
+        """ Get the number of keys in double stroke. """
+        word = b.Brief(name="Double", keys="L-Th/-G")
+        n_strokes_test = len(word)
+        n_strokes_expected = 2
+
+        self.assertEqual(n_strokes_test, n_strokes_expected)
+
+    def test_triple_len(self):
+        """ Get the number of keys in a triple stroke. """
+        word = b.Brief(name="Double", keys="L-Th/-G/KWRO-NG")
+        n_strokes_test = len(word)
+        n_strokes_expected = 3
+
+        self.assertEqual(n_strokes_test, n_strokes_expected)
