@@ -234,26 +234,29 @@ class Brief:
 
 def brief_grid(briefs: List[Brief], width: Optional[int] = None):
     """ Print the briefs in a grid """
+    # Calculate the number of strokes we can fit per line
     grid_width = width if width is not None else _get_term_width()
-
     grid_gap = "  │  "
     block_len = 21 + len(grid_gap)
     blocks_per_line = grid_width // block_len
 
-    lines = ["" for i in range(5)]
-
+    # We have to write the lines conncurrently
+    lines = ["" for i in range(6)]
     row = ""
     current_pos = 0
 
-    for n_brief, brief in enumerate(briefs):
-
+    for brief in briefs:
         # Reset the current line if there will be an overflow
-        current_pos += len(brief)
+        stroke_len = len(brief)
+        if stroke_len > blocks_per_line:
+            # TODO: Currently we cannot deal with strokes longer than the grid
+            continue
+        current_pos += stroke_len
         if current_pos > blocks_per_line:
             row += "\n".join(lines)
-            row += "\n\n"
+            row += "\n"
             lines = ["" for i in lines]
-            current_pos = len(brief)
+            current_pos = stroke_len
 
         # Add the new block alongside the previous entry
         _append_block(brief, lines, grid_gap)
@@ -268,10 +271,14 @@ def brief_grid(briefs: List[Brief], width: Optional[int] = None):
 
 
 def _append_block(brief: Brief, lines: str, grid_gap: str):
-    """ """
+    """ Add the new entry in the cell to the left of the current entry. """
+    boundary = "     " if brief.next_items else grid_gap
     strings = brief.block.split("\n")
     for i in range(5):
-        lines[i] += strings[i] + grid_gap
+        lines[i] += strings[i] + boundary
+
+    # Draw the row boundary
+    lines[5] += " " * 21 + boundary
 
 
 def _get_term_width() -> int:

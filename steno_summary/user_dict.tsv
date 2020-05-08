@@ -21,8 +21,8 @@ Ask	SK	SK
 Ch [Right]	-FP		single
 Choice	ChOIS
 Do	DO
-Doing	DO/-G
 Doing	DO*G
+Doing	DO/-G
 Easy	EZ
 Ever	-FR
 Every	E-FR
@@ -33,9 +33,9 @@ Function	FUKS
 Good	GOoD
 Have	HAOER
 Have you been	VUB
-Idea	Y-D
 I dont' think	KWRO-NG
 I want	IPT
+Idea	Y-D
 Interest	TR
 N [Left]	N		single
 N [Right]	-N		single
@@ -47,9 +47,11 @@ Subject	SUBT
 Their	THA-IR
 Think	ThI
 Thinking	ThI/-G
+To you	TOU
 Today	TOENT
 Tomorrow	TO-EM
 Tonight	TO-NT
+Targets	TAT/TKPWET/-S
 V [Right]	-V		single
 Very	VE
 Very much	V-FP
@@ -65,7 +67,6 @@ You can	KU
 You would	ULD
 You'll	UL
 Yours	URS
-To you	TOU
 Z [Left]	Z		single
 [	BR-KT		punctuation
 [backspace]	B-Ch		command
