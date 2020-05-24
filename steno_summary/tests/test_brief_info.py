@@ -232,6 +232,53 @@ class TestWordParsing(unittest.TestCase):
         self.validate_missing(word, left, right, starred=starred)
 
 
+class TestVowelStroke(unittest.TestCase):
+    def validate_missing(
+        self, word: b.Brief, left_keys: set, right_keys: set, starred=False
+    ):
+        """ Test for the recorded and missing letters on the left/right side. """
+        # Left side unchanged
+        remaining_left_expeceted = left_set - left_keys
+        remaining_left_actual = word.remaining_left
+        self.assertEqual(remaining_left_expeceted, remaining_left_actual)
+
+        left_letter_expected = left_keys
+        left_letter_actual = word.left_letters
+        self.assertEqual(left_letter_expected, left_letter_actual)
+
+        # Right side missing the letter
+        remaining_right_expeceted = right_set - right_keys
+        remaining_right_actual = word.remaining_right
+        self.assertEqual(remaining_right_expeceted, remaining_right_actual)
+
+        right_letter_expected = right_keys
+        right_letter_actual = word.right_letters
+        self.assertEqual(right_letter_expected, right_letter_actual)
+
+        self.assertEqual(starred, word.starred, msg=f"{word} failed")
+
+    def test_vowel_simple(self):
+        """ Adding a simple stroke that requires both sides of the keyboard. """
+        word = b.Brief("Vowel", "Aw")
+
+        left = {"A"}
+        right = {"U"}
+        self.validate_missing(word, left, right)
+
+    def test_vowel_complex(self):
+        """ Adding a vowel stroke along with other chars. """
+        word = b.Brief("Vowel", "NAwCh")
+
+        left = {l for l in "TPHA"}
+        right = {l for l in "UFP"}
+        self.validate_missing(word, left, right)
+
+    def test_breaking_sting(self):
+        """ Raise an appropriate error if things are out of order. """
+        with self.assertRaises(ValueError):
+            word = b.Brief("Vowel", "-FAw")
+
+
 class TestGrid(unittest.TestCase):
     @unittest.skip
     def test_splitting(self):

@@ -80,17 +80,19 @@ def add_to_dict(brief: Brief, briefs=List[Brief]):
     if not isinstance(brief, Brief):
         raise TypeError("brief should be of type Brief")
 
-    names = [b.name for b in briefs]
-    if brief.name in names:
-        raise ValueError("Brief {brief} already in collection.")
+    keys = [b.keys_full for b in briefs]
+    if brief.keys_full in keys:
+        raise ValueError(f"Keys for already in collection: {brief.tsv}")
 
     bisect.insort(briefs, brief)
     return
 
 
-def save_dict_to_file(brief_list: List[Brief], save_path: Path):
+def save_dict_to_file(brief_list: List[Brief], save_path: Optional[Path] = None):
     """ Save the directory to file. """
+    save_path = _validate_path(save_path)
     with open(save_path, "w") as f:
+        f.writelines("Names\tKeys\tCannonical\tTags\n")
         f.writelines([b.tsv for b in brief_list])
 
 

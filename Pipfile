@@ -21,6 +21,7 @@ parameterized = "*"
 backtrace = "*"
 steno-summary = {editable = true,path = "."}
 sortedcollections = "*"
+i3ipc = "*"
 
 [requires]
 python_version = "3.8"

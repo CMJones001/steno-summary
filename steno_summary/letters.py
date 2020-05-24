@@ -28,11 +28,22 @@ class Letter:
     )
     cmd_chars = frozenset(["*"])
 
-    def __init__(self, left=None, right=None):
+    def __init__(self, left=None, right=None, both=False):
+        """ Add the stroke for the letter on the left and right hand side of the keyboard.
+
+        By default, these are taken to be separate events: for instance, "F" may by given
+        by either "TP" or "-F".
+
+        However when the ``Both`` flag is used, the sides must be struct together,
+        as is seen in the case of vowels: for instance the vowel sound "aw" is struck as
+        "AU".
+
+        """
         if left is None and right is None:
             raise ValueError("Either left or right hand size must be provided")
         self.left = self._validate_left(left)
         self.right = self._validate_right(right)
+        self.both = both
 
     def _validate_left(self, letters: Optional[str]) -> Set[str]:
         """ Ensure that given keys are in the left hand side of the keyboard. """
@@ -67,6 +78,12 @@ class Letter:
         return "".join(self.left) + "".join(self.right)
 
 
+class DualSideLetter(Letter):
+    """ Some letters, mostly long vowels, require that we stroke on both sides of the
+    keyboard.
+    """
+
+
 def split_on_capital(string: str) -> List[str]:
     """ Break a string into lists starting starting with a single captial letter and then
     zero or more lower case letters.
@@ -92,7 +109,7 @@ f = Letter(left="TP", right="F")
 g = Letter(left="TPKW", right="G")
 h = Letter(left="H")
 i = Letter(right="EU")
-j = Letter(left="SKWR")
+j = Letter(left="SKWR", right="PLBG")
 k = Letter(left="K", right="BG")
 l = Letter(left="HR", right="L")
 m = Letter(left="PH", right="PL")
@@ -115,3 +132,10 @@ ng = Letter(right="PBG")
 nk = Letter(right="*PBG")
 mp = Letter(right="*PL")
 oo = Letter(left="AO")
+
+aw = Letter(left="A", right="U", both=True)
+ow = Letter(left="O", right="U", both=True)
+ee = Letter(left="AO", right="E", both=True)
+ea = Letter(left="A", right="E", both=True)
+aa = Letter(left="A", right="EU", both=True)
+ii = Letter(left="AO", right="EU", both=True)

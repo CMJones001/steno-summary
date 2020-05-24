@@ -1,75 +1,127 @@
-#Word	Summar	Cannonical	Tags
-"	KW-GS		punctuation
-"	KW-*GS		punctuation
-'[close]	AE		punctuation
-'[open]	A*E		punctuation
-,	WR-BG		punctuation
--d	-D		suffix
--ly	-LI		suffix
--er	E*R		suffix
--or	O*R		suffix
--tion	SH-*UN		suffix
--ion	YON		suffix
--able	-BL		suffix
--al	A*L		suffix
--ing	-G		suffix
--s	-S		suffix
--ness	N-S		suffix
-=	Q-L		punctuation
-Although	L-Th
-Ask	SK	SK
-Ch [Right]	-FP		single
-Choice	ChOIS
-Do	DO
-Doing	DO*G
-Doing	DO/-G
-Easy	EZ
-Ever	-FR
-Every	E-FR
-Everyone	EFRN
-Family	FAM
-Forget	FO-RGT	TPORGT
-Function	FUKS
-Good	GOoD
-Have	HAOER
-Have you been	VUB
-I dont' think	KWRO-NG
-I want	IPT
-Idea	Y-D
-Interest	TR
-N [Left]	N		single
-N [Right]	-N		single
-Now	NOE	TPHOE
-Obvious	O-FB
-Obviously	O-FBL
-Of course	O-FK
-Subject	SUBT
-Their	THA-IR
-Think	ThI
-Thinking	ThI/-G
-To you	TOU
-Today	TOENT
-Tomorrow	TO-EM
-Tonight	TO-NT
-Targets	TAT/TKPWET/-S
-V [Right]	-V		single
-Very	VE
-Very much	V-FP
-We have	VWAOE
-What happens	WHAPS
-Where Would	WR-LD
-Would	WO
-Would be	WO*UB
-Would the	WOU
-Would you	WOU
-Would've	WOUV
-You can	KU
-You would	ULD
-You'll	UL
-Yours	URS
-Z [Left]	Z		single
-[	BR-KT		punctuation
-[backspace]	B-Ch		command
-[capitalise]	KPA		command
-[space]	S-P		command
-]	BR*-KT		punctuation
+#Names	Keys	Cannonical	Tags
+"	KW-GS	KWGS	punctuation
+"	KW-*GS	KW*GS	punctuation
+'[close]	AE	AE	punctuation
+'[open]	A*E	A*E	punctuation
+,	WR-BG	WRBG	punctuation
+-able	-BL	BL	suffix
+-al	A*L	HRA*	suffix
+-d	-D	D	suffix
+-er	E*R	*ER	suffix
+-ing	-G	G	suffix
+-ion	YON	TKPWHRO	suffix
+-ly	-LI	EUL	suffix
+-ness	N-S	TPHS	suffix
+-or	O*R	RO*	suffix
+-s	-S	-S	suffix
+-tion	SH-*UN	SH*UPB	suffix
+=	Q-L	KWL	punctuation
+Again	GEN	TKPWEPB	
+Against	GENS	TKPWEPBS	
+Age	AJ	SKWRA	
+Although	L-Th	HR*T	
+Anything	NIG	TPHEUG	
+Ask	SK	SK	
+Bare	BAaR	PWAEUR	
+Bear	BEaR	PWAER	
+Begin	GIN	TKPWEUPB	
+Carry	KARE	KRAE	
+Ch [Right]	-FP	FP	single
+Choice	ChOIS	KHOEUS	
+Company	K-P	K-P	
+Danger	DAaJ	TKAEUPBLG	
+Dangerous	DAaJS	TKAEUPBLGS	
+Define	DE/FEaN	TKE/TPAEPB	
+Detail	DE/TAaL	TKE/TAEUL	
+Dinosaur	DIiN/SAUR	TKAOEUPB/SAUR	
+Do	DO	TKO	
+Do not	DPHOT	TKPHOT	
+Do you	DOw*	TKO*U	reverse
+Doing	DO*G	TKO*G	
+Doing	DO/-G	TKO/G	
+Ease	EeS	AOES	
+Easy	EZ	EZ	
+Enough	NUF	TPHUF	
+Even	EeN	AOEPB	
+Even if	FEeN	TPAOEPB	
+Evenly	EeNL	AOEPBL	
+Ever	-FR	FR	
+Every	E-FR	EFR	
+Everyone	EFRN	EFRPB	
+Family	FAM	TPAPL	
+Forget	FO-RGT	TPORGT	
+Fox	FO-KS	TPOBGS	
+Function	FUKS	TPUBGS	
+Go	G	TKPW	
+Going	GG	TKPWG	
+Good	GOoD	TKPWAOD	
+Goodbye	G-B	TKPWB	
+Goodnight	G-N	TKPWPB	
+Happy	HA-PE	HAEP	
+Have	HAOER	HAOER	
+Have had	V-D	SRD	
+Have you been	VUB	SRUB	
+Heal	HEaL	HAEL	
+Heel	HEeL	HAOEL	
+However	HOUFR	HOUFR	
+I dont' think	KWRO-NG	KWROPBG	
+I want	IPT	EUPT	
+Idea	Y-D	KWRD	
+If you	FU	TPU	
+Interest	T-R	T-R	
+Interest	TR	TR	
+Language	LAJ	HRAPBLG	
+Many	MEaN	PHAEPB	
+Meat	MEaT	PHAET	
+Meet	MEeT	PHAOET	
+Mother	MOER	PHOER	
+N [Left]	N	TPH	single
+N [Right]	-N	PB	single
+Now	NOE	TPHOE	
+Obvious	O-FB	OFB	
+Obviously	O-FBL	OFBL	
+Of course	O-FK	OFBG	
+Other	OER	OER	
+People	PEePL	PAOEPL	
+Please	PLES	PHRES	
+Please	PLEeS	PHRAOES	
+Ready	DREa	TKRAE	reverse
+Ready	R*ED	R*ED	
+Really	LEe-RL	HRAOERL	reverse
+Really	REeRL	RAOERL	
+Reason	R-N	RPB	
+Reasoned	R-ND	RPBD	
+Subject	SUBT	SUBT	
+Technology	TO-J	TOPBLG	
+Their	THA-IR	THAEUR	
+These	THEZ	THEZ	
+Think	ThI	THEU	
+Thinking	ThI/-G	THEU/G	
+To you	TOU	TOU	
+Today	TOENT	TOEPBT	
+Tomorrow	TO-EM	TOEPL	
+Tonight	TO-NT	TOPBT	
+V [Right]	-V	*F	single
+Very	VE	SRE	
+Very much	V-Ch	SRFP	
+We have	VWAOE	SWRAOE	
+What happens	WHAPS	SPWHA	
+Where Would	WR-LD	WRLD	
+Would	WO	WO	
+Would be	WO*UB	WO*UB	
+Would the	WOU	WOU	
+Would you	WOU	WOU	
+Would've	WOUV	WO*UF	
+Year	YEeR	KWRAOER	
+You can	KU	KU	
+You do	DOw	TKOU	
+You would	ULD	ULD	
+You'll	UL	UL	
+Yours	URS	URS	
+Z [Left]	Z	S*	single
+[	BR-KT	PWRBGT	punctuation
+[backspace]	B-Ch	PWFP	command
+[capitalise]	KPA	KPA	command
+[space]	S-P	S-P	command
+]	BR*-KT	PWR*BGT	punctuation
+vim	V*IM	SR*EUPL	

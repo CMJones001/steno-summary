@@ -70,6 +70,7 @@ class Brief:
         self.tags = tags if tags is not None else []
         self.starred = False
         self.next_ = None
+        self.keys_full = self.keys
 
         letter_list = letters.split_on_capital(keys)
         for num, l in enumerate(letter_list):
@@ -110,7 +111,11 @@ class Brief:
     @property
     def cannonical(self):
         """ The key squence without abreviations. """
-        return "".join(self.left_letters | self.right_letters)
+        cannonical = self.sorted_keys
+
+        for next_ in self.next_items:
+            cannonical += "/" + next_.sorted_keys
+        return cannonical
 
     @property
     def remaining_left(self):
@@ -130,9 +135,10 @@ class Brief:
     @property
     def tsv(self):
         """ Tab separated values to save into dictionary. """
-        return f"{self.name}\t{self.keys}\t{self.cannonical}\n"
+        tags = ",".join(self.tags)
+        return f"{self.name}\t{self.keys_full}\t{self.cannonical}\t{tags}\n"
 
-    def _parse_key_stroke(self, key):
+    def _parse_key_stroke(self, key: letters.Letter):
         """ Attempt to add a letter to the letter store """
         # Dash is not key stroke but shows that we should move side
         if key == "-":
@@ -142,8 +148,12 @@ class Brief:
             self.starred = True
             return None
 
+        # Parse the
+        if key.both:
+            if not (self.fit_on_left(key) and self.fit_on_right(key)):
+                raise ValueError(f"Unable to place dual key stroke - {key}")
         # Attempt to fit on the left then right of the keyboard
-        if not (self.fit_on_left(key) or self.fit_on_right(key)):
+        elif not (self.fit_on_left(key) or self.fit_on_right(key)):
             raise ValueError(f"Unable to place keystroke - {key}")
 
     def fit_on_left(self, key: letters.Letter) -> bool:
@@ -152,9 +162,6 @@ class Brief:
         If the ``self.left_valid`` flag has been disabled then this will automatically
         fail. Typically this is caused after we add a key to the right hand side.
         """
-
-        # Remove control chars
-        # TODO: Will have to deal with letters that have - in them
 
         # Deal with blank cases
         if not self.left_valid or not key.left:
@@ -194,6 +201,42 @@ class Brief:
                 self.starred = True
             return True
         return False
+
+    @cached_property
+    def sorted_keys(self):
+        """ Sort the keys on the left hand side of the keyboard. """
+        left = "STKPWHRAO"
+        right = "EUFRPBLGTSDZ"
+
+        sorted_left = [k for k in left if k in self.left_letters]
+        sorted_right = [k for k in right if k in self.right_letters]
+
+        sorted_left = "".join(sorted_left)
+        sorted_right = "".join(sorted_right)
+
+        # if  RPST in right but not left add dash
+        div = ""
+        if sorted_right == "S" and sorted_left == "":
+            div = "-"
+        elif sorted_right.startswith("T") and self.ends_with_list(sorted_left, "S"):
+            div = "-"
+        elif sorted_right.startswith("P") and self.ends_with_list(sorted_left, "STK"):
+            div = "-"
+        elif sorted_right.startswith("R") and self.ends_with_list(
+            sorted_left, "STKPWH"
+        ):
+            div = "-"
+
+        if self.starred:
+            div = "*"
+
+        return sorted_left + div + sorted_right
+
+    @staticmethod
+    def ends_with_list(string: str, letters: str):
+        """ Test if the string ends with one of the provided letters. """
+        ends = [l for l in letters if string.endswith(l)]
+        return True if ends else False
 
     @cached_property
     def block(self):
