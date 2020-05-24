@@ -13,17 +13,22 @@ import sys
 # ["echo", "awk", "-F'\t '$4 { print $4 }'", user_dict], shell=True, stdout=PIPE,
 
 
-def read_tags(user_dict: Path):
-    """ Get the tags from the file. """
-
-    # Grab a set of unique tags from the dict
+def get_tags(user_dict: Path):
+    """ Get the tags from the dict."""
     tags = run(["awk", "-F	", "$4 && NR>1 { print $4 }", user_dict], stdout=PIPE)
-    tags = set(_decode_stdout(tags).split("\n"))
+    tags = _decode_stdout(tags)
+    return tags
+
+
+def dmenu_tags(user_dict: Path):
+    """ Get the tags from the file. """
+    tags = get_tags(user_dict)
+    tags = set(tags.split("\n"))
 
     # dmenu requires a new line seperated string
     tag_string = "\n".join(tags)
     selection = run(["dmenu"], input=tag_string.encode("utf8"), stdout=PIPE)
-    return _decode_stdout(selection)
+    return ["-t", _decode_stdout(selection)]
 
 
 def _decode_stdout(selection) -> str:
@@ -70,8 +75,8 @@ def main():
         launch_term("contains")
     elif selection is Option.tag:
         # Read tag from dmenu
-        tag = read_tags(dict_path)
-        launch_term("tag", tag)
+        tag = dmenu_tags(dict_path)
+        launch_term("matches-tag", tag)
     elif selection is Option.add:
         launch_term("add")
     else:
