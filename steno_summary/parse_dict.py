@@ -92,7 +92,7 @@ def save_dict_to_file(brief_list: List[Brief], save_path: Optional[Path] = None)
     """ Save the directory to file. """
     save_path = _validate_path(save_path)
     with open(save_path, "w") as f:
-        f.writelines("Names\tKeys\tCannonical\tTags\n")
+        f.writelines("# Names\tKeys\tCannonical\tTags\n")
         f.writelines([b.tsv for b in brief_list])
 
 

@@ -23,7 +23,7 @@ Plans
 -----
 
 TODO: Steno order: This doesn't really respect the steno order too well, we
-      should address this better. Mostly this effects the cannonical outup and
+      should address this better. Mostly this effects the cannonical output and
       occassionally requires an additional "-" in the brief description. Might
       be enough to sort the hands separately?
 """
@@ -35,7 +35,7 @@ right_hand = frozenset(["E", "U", "F", "R", "P", "B", "L", "G", "T", "S", "D", "
 
 
 class Brief:
-    """ Key stroke summary for a word.
+    """Key stroke summary for a word.
 
     This allows us to not only display the briefs is a more visual format, but also store
     them in a more intuitive manner. For instance:
@@ -157,7 +157,7 @@ class Brief:
             raise ValueError(f"Unable to place keystroke - {key}")
 
     def fit_on_left(self, key: letters.Letter) -> bool:
-        """ Attempt to fit the key onto the left hand side of the keyboard.
+        """Attempt to fit the key onto the left hand side of the keyboard.
 
         If the ``self.left_valid`` flag has been disabled then this will automatically
         fail. Typically this is caused after we add a key to the right hand side.
@@ -264,9 +264,7 @@ class Brief:
         right_bot = f"{right_fmt['E']} {right_fmt['U']}      "
 
         merge_block = (
-            f"{left_top} {right_top}\n"
-            f"{left_mid} {right_mid}\n"
-            f"{left_bot}   {right_bot}"
+            f"{left_top} {right_top}\n{left_mid} {right_mid}\n{left_bot}   {right_bot}"
         )
         block = f"{self.name:^21}\n" + f"{self.keys:^21}\n" + merge_block
         return block
