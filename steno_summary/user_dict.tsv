@@ -1,4 +1,4 @@
-#Names	Keys	Cannonical	Tags
+# Names	Keys	Cannonical	Tags
 "	KW-GS	KWGS	punctuation
 "	KW-*GS	KW*GS	punctuation
 '[close]	AE	AE	punctuation
@@ -16,23 +16,49 @@
 -s	-S	-S	suffix
 -tion	SH-*UN	SH*UPB	suffix
 =	Q-L	KWL	punctuation
+Actual	TUuL	TAOUL	
+Actually	TLUuL	THRAOUL	
+Advanced	VANS	STPHRAS	
+Advancement	VAMent	SRAPLT	
+Advice	VIS	SREUS	
 Again	GEN	TKPWEPB	
 Against	GENS	TKPWEPBS	
 Age	AJ	SKWRA	
 Although	L-Th	HR*T	
 Anything	NIG	TPHEUG	
+Arch	ARch	AFRPB	
+Aren't	R-NT	RPBT	
 Ask	SK	SK	
+Average	A-FRJ	AFRPBLG	
+Average	A-FG	AFG	
 Bare	BAaR	PWAEUR	
+Basement	BAaMent	PWAEUPLT	
 Bear	BEaR	PWAER	
+Beauty	BUuT	PWAOUT	
 Begin	GIN	TKPWEUPB	
+Birch	BIRch	PWEUFRPB	
 Carry	KARE	KRAE	
+Cement	SEMent	SEPLT	
 Ch [Right]	-FP	FP	single
 Choice	ChOIS	KHOEUS	
+Comment	KOMent	KOPLT	
+Commit	ComMIT	KPHEUT	
+Common	ComO-N	KOPB	
 Company	K-P	K-P	
+Compare	ComPA-RE	KPAER	
+Compute	ComPUuT	KPAOUT	
+Confrence	Con-FRNS	KFRPBS	
+Confuse	ConUuFS	KAOUFS	
+Confusing	ConUuFG	KAOUFG	
+Continue	T-N	T-PB	
+Curve	KURve	KUFRB	
 Danger	DAaJ	TKAEUPBLG	
 Dangerous	DAaJS	TKAEUPBLGS	
+Dash	D-Sh	TK-RB	
 Define	DE/FEaN	TKE/TPAEPB	
+Department	DPARMent	TKPRAPLT	
 Detail	DE/TAaL	TKE/TAEUL	
+Develop	SREL	SREL	
 Dinosaur	DIiN/SAUR	TKAOEUPB/SAUR	
 Do	DO	TKO	
 Do not	DPHOT	TKPHOT	
@@ -42,6 +68,8 @@ Doing	DO/-G	TKO/G
 Ease	EeS	AOES	
 Easy	EZ	EZ	
 Enough	NUF	TPHUF	
+Enter	EntER	SPWER	
+Entire	EntIiR	SPWAOEUR	
 Even	EeN	AOEPB	
 Even if	FEeN	TPAOEPB	
 Evenly	EeNL	AOEPBL	
@@ -49,14 +77,17 @@ Ever	-FR	FR
 Every	E-FR	EFR	
 Everyone	EFRN	EFRPB	
 Family	FAM	TPAPL	
+Finish	F*ISh	TP*EURB	
 Forget	FO-RGT	TPORGT	
 Fox	FO-KS	TPOBGS	
 Function	FUKS	TPUBGS	
+Gaseous	GAShs	TKPWARBS	
 Go	G	TKPW	
 Going	GG	TKPWG	
 Good	GOoD	TKPWAOD	
 Goodbye	G-B	TKPWB	
 Goodnight	G-N	TKPWPB	
+Guess	GES	TKPWES	
 Happy	HA-PE	HAEP	
 Have	HAOER	HAOER	
 Have had	V-D	SRD	
@@ -68,29 +99,48 @@ I dont' think	KWRO-NG	KWROPBG
 I want	IPT	EUPT	
 Idea	Y-D	KWRD	
 If you	FU	TPU	
+Implement	IMent	EUPLT	
+Individual	VID	SREUD	
 Interest	T-R	T-R	
 Interest	TR	TR	
+Into	NOo	TPHAO	
 Language	LAJ	HRAPBLG	
 Many	MEaN	PHAEPB	
+Measure	M*ESh	PH*ERB	
+Measure it	TM*ESh	TPH*ERB	
 Meat	MEaT	PHAET	
 Meet	MEeT	PHAOET	
+Moment	MOMent	PHOPLT	
 Mother	MOER	PHOER	
 N [Left]	N	TPH	single
 N [Right]	-N	PB	single
+Nerve	NERve	TPHEFRB	
 Now	NOE	TPHOE	
+Object	OBT	TPWO	
+Observe	OEB	OEB	
 Obvious	O-FB	OFB	
 Obviously	O-FBL	OFBL	
 Of course	O-FK	OFBG	
 Other	OER	OER	
+Particular	PHRAR	PHRAR	
+Particularly	PHRARL	PHRARL	
+Payment	PAaMent	PAEUPLT	
 People	PEePL	PAOEPL	
 Please	PLES	PHRES	
 Please	PLEeS	PHRAOES	
+Ration	RAShun	RAGS	
 Ready	DREa	TKRAE	reverse
 Ready	R*ED	R*ED	
 Really	LEe-RL	HRAOERL	reverse
 Really	REeRL	RAOERL	
 Reason	R-N	RPB	
 Reasoned	R-ND	RPBD	
+Research	RERch	REFRPB	
+Section	SEKshun	SEBGS	
+Serve	SERve	SEFRB	
+Shipment	SHIMent	SHEUPLT	
+Solution	SLUuShun	SHRAOUGS	
+Sorry	SO*ER	SO*ER	
 Subject	SUBT	SUBT	
 Technology	TO-J	TOPBLG	
 Their	THA-IR	THAEUR	
@@ -101,9 +151,15 @@ To you	TOU	TOU
 Today	TOENT	TOEPBT	
 Tomorrow	TO-EM	TOEPL	
 Tonight	TO-NT	TOPBT	
+Treatment	TREeMent	TRAOEPLT	
+Two	TWO	TWO	
+Understand	URND	URPBD	
+Understanding	URNGD	URPBGD	
 V [Right]	-V	*F	single
+Value	VUuL	SRAOUL	
 Very	VE	SRE	
 Very much	V-Ch	SRFP	
+Vicious	VIShs	SREURBS	
 We have	VWAOE	SWRAOE	
 What happens	WHAPS	SPWHA	
 Where Would	WR-LD	WRLD	
@@ -124,4 +180,5 @@ Z [Left]	Z	S*	single
 [capitalise]	KPA	KPA	command
 [space]	S-P	S-P	command
 ]	BR*-KT	PWR*BGT	punctuation
+fashion	FAShun	TPAGS	
 vim	V*IM	SR*EUPL	
