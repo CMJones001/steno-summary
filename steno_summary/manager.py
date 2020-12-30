@@ -66,6 +66,13 @@ def add(name: str = None, keys: str = None, tags: Optional[str] = None):
     pd.save_dict_to_file(briefs)
 
 
+@argh.aliases("all")
+def print_all():
+    """ Print all of the words in the dictionary and then exit. """
+    briefs = read_dict()
+    print(brief_grid(briefs))
+
+
 def _query_user_if_none(string: Optional[str], message=str) -> str:
     """ Return the value or ask the user for a value if not provided. """
     return string if string else input(message)
@@ -104,4 +111,4 @@ def _decode_stdout(selection) -> str:
 
 
 if __name__ == "__main__":
-    argh.dispatch_commands([contains, starting_with, matches_tag, add])
+    argh.dispatch_commands([contains, starting_with, matches_tag, add, print_all])
