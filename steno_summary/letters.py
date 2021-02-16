@@ -29,7 +29,7 @@ class Letter:
     cmd_chars = frozenset(["*"])
 
     def __init__(self, left=None, right=None, both=False):
-        """ Add the stroke for the letter on the left and right hand side of the keyboard.
+        """Add the stroke for the letter on the left and right hand side of the keyboard.
 
         By default, these are taken to be separate events: for instance, "F" may by given
         by either "TP" or "-F".
@@ -79,13 +79,13 @@ class Letter:
 
 
 class DualSideLetter(Letter):
-    """ Some letters, mostly long vowels, require that we stroke on both sides of the
+    """Some letters, mostly long vowels, require that we stroke on both sides of the
     keyboard.
     """
 
 
 def split_on_capital(string: str) -> List[str]:
-    """ Break a string into lists starting starting with a single captial letter and then
+    """Break a string into lists starting starting with a single captial letter and then
     zero or more lower case letters.
 
     This will ignore any lowercase letters at the start of the match as these aren't part
@@ -141,6 +141,7 @@ aw = Letter(left="A", right="U", both=True)
 ea = Letter(left="A", right="E", both=True)
 aa = Letter(left="A", right="EU", both=True)
 ow = Letter(left="O", right="U", both=True)
+oi = Letter(left="O", right="EU", both=True)
 ee = Letter(left="AO", right="E", both=True)
 uu = Letter(left="AO", right="U", both=True)
 ii = Letter(left="AO", right="EU", both=True)
@@ -154,3 +155,4 @@ rch = Letter(right="FRPB")
 rve = Letter(right="FRB")
 shun = Letter(right="GS")
 ent = Letter(left="SPW")
+ds = Letter(left="STK")

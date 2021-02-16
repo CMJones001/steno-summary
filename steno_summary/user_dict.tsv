@@ -56,7 +56,11 @@ Danger	DAaJ	TKAEUPBLG
 Dangerous	DAaJS	TKAEUPBLGS	
 Dash	D-Sh	TK-RB	
 Define	DE/FEaN	TKE/TPAEPB	
+Define	DE/FIiN	TKE/TPAOEUPB	
 Department	DPARMent	TKPRAPLT	
+Depress	DE/PRES	TKE/PRES	
+Depress	DPRES	TKPRES	
+Destroy	DsROi	STKROEU	
 Detail	DE/TAaL	TKE/TAEUL	
 Develop	SREL	SREL	
 Dinosaur	DIiN/SAUR	TKAOEUPB/SAUR	
@@ -142,6 +146,7 @@ Shipment	SHIMent	SHEUPLT
 Solution	SLUuShun	SHRAOUGS	
 Sorry	SO*ER	SO*ER	
 Subject	SUBT	SUBT	
+Straps	STRA-PS	STRAPS
 Technology	TO-J	TOPBLG	
 Their	THA-IR	THAEUR	
 These	THEZ	THEZ	
@@ -179,6 +184,7 @@ Z [Left]	Z	S*	single
 [backspace]	B-Ch	PWFP	command
 [capitalise]	KPA	KPA	command
 [space]	S-P	S-P	command
+[all]	STKPWHRAO*EUFRPBLGTSDZ	STKPWHRAO*EUFRPBLGTSDZ	command
 ]	BR*-KT	PWR*BGT	punctuation
-fashion	FAShun	TPAGS	
-vim	V*IM	SR*EUPL	
+Fashion	FAShun	TPAGS	
+Vim	V*IM	SR*EUPL	

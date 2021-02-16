@@ -13,6 +13,7 @@ python-language-server = {extras = ["all"],version = "*"}
 epc = "*"
 ptvsd = "*"
 coverage = "*"
+steno-summary = {path = "."}
 
 [packages]
 numpy = "*"
